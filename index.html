@@ -5,26 +5,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Sushil">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
     <title>Student Registration Form</title>
 </head>
 
 <body>
-    <header>
-
-        <nav></nav>
-    </header>
 
     <!-- Header -->
+    <header class="px-5">
+        <span class="heading">Student Registration System</span>
+    </header>
 
-    <!-- The Student Registration System allows students to register, 
-    edit, and delete their details efficiently. It ensures
-    accurate management of student information for streamlined administration. -->
-
-
-
-
-
+    <main class="px-5">
+        <section class="container mt-5">
+            <section class="row hero-section-left">
+                <section class="col-md-6 hero-section-p">
+                    <p>The Student Registration System allows students to register,
+                        edit, and delete their details efficiently. It ensures
+                        accurate management of student information for streamlined administration.</p>
+                </section>
+                <section class="col-md-6 hero-section-right">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Class</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Contact Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr class="table-info">
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+            <section class="row">
+                <h2 class="text-white text-center heading">Student Form</h2>
+                <form class="col-md-8 offset-2">
+                    <section class="form-element-row form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input class="form-control" type="text" id="std_name">
+                        <small class="text-danger" id="name-error">Error</small>
+                    </section>
+                    <section class="form-element-row form-group">
+                        <label for="std_id" class="form-label">Student ID</label>
+                        <input class="form-control" type="text" id="std_id">
+                        <small class="text-danger" id="id-error">Error</small>
+                    </section>
+                    <section class="form-element-row form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input class="form-control" type="text" id="email">
+                        <small class="text-danger" id="email-error">Error</small>
+                    </section>
+                    <section class="form-element-row form-group">
+                        <label for="contact" class="form-label">Contact No.</label>
+                        <input class="form-control" type="text" id="contact">
+                        <small class="text-danger" id="contact-error">Error</small>
+                    </section>
+                    <button id="submitBtn" class="btn btn-primary mt-4">Submit</button>
+                </form>
+            </section>
+        </section>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

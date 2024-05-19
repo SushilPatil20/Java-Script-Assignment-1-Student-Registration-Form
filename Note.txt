@@ -1,7 +1,7 @@
 Develop Student Registration syste.
 
 1] Student Should be able to register the form.  
-2] Form input (name, class, address, contact number) 
+2] Form input (name, student_id, email, contact number) 
 3] Provides a functionalities for editing and deleting records.
 
 Functionality to implement 

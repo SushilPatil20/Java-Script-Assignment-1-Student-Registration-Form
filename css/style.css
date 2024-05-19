@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: linear-gradient(to left, red, blue);
+}
+
+.heading {
+    font-size: 32px;
+    font-weight: 500;
+    font-family: cursive;
+    display: block;
+    text-align: center;
+    margin: 2rem 0;
+    color: white;
+}
+
+.hero-section-left {
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0;
+}
+
+
+.hero-section-p {
+    font-size: 22px;
+    line-height: 40px;
+    color: white;
+}
+
+.hero-section-right {
+    height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    /* Options: auto, thin */
+    scrollbar-color: #f4f405 #0653ec;
+}
+
+.hero-section-right thead tr {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(rgb(230, 84, 84), rgb(82, 82, 222));
+    color: white;
+    border: none;
+}
+
+.form-element-row label {
+    font-size: 22px;
+    margin: 22px 0 0;
+    color: white;
+}
+
+.form-element-row input {
+    font-size: 20px;
+    padding: 10px 8px;
+}
+
+.form-element-row small {
+    display: block;
+    margin: 0.7rem 0;
+}
+
+#submitBtn {
+    display: block;
+    margin: 4rem auto;
+    width: 40%;
+}
