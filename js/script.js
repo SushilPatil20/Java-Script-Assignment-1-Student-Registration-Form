@@ -1,74 +1,31 @@
 
-// onclick get the user Data from all the input fields.
-
-// store it into the localstorage in the form of objects (Creating method store local)
-// Call the update display method (creating method get local).
-
-
 const errorMessageArray = [];
-const studentData = [];
-
-
-
 const submit = document.getElementById("submitBtn");
-
-submit.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    const getName = document.getElementById("std_name").value;
-    const getId = document.getElementById("std_id").value;
-    const email = document.getElementById("email").value;
-    const contactNO = document.getElementById("contact").value;
-
-    // if (getName && getId && email && contactNO) {
-    //     if (!Validation.isAllChars(getName)) {
-    //         errorMessageArray.push({
-    //             "name": "Name must contain characters only."
-    //         })
-    //     }
-    //     if (!Validation.isEmail(email)) {
-    //         errorMessageArray.push({
-    //             "email": "Enter valid email !!"
-    //         })
-    //     }
-    //     if (!Validation.isNumber(getId)) {
-    //         errorMessageArray.push({
-    //             "std_id": "Id must be number"
-    //         })
-    //     }
-    //     if (!Validation.isNumber(contactNO)) {
-    //         errorMessageArray.push({
-    //             "contact": "Contact no must contain number only"
-    //         })
-    //     }
-    // }
-
-    const newStudent = {
-        name: getName,
-        id: getId,
-        email: email,
-        contact: contactNO
-    }
-    const newStuden = new Student(newStudent);
-
-
-    // console.log(getName, getId, email, contactNO);
-})
+let studentData = JSON.parse(localStorage.getItem("student_data")) || []
 
 
 
 
-function storeLocal() {
-    localStorage.setItem("student_data", studentData)
+// ------------------------------------ Helpers ------------------------------------
+
+function deleteStudentData(index) {
+    Student.delete(index);
 }
 
 
-
-
-
-
-
 class Student {
+
+    /**
+     * 
+     * defining values for properties 
+     * 
+     * @param name 
+     * @param std_id 
+     * @param email 
+     * @param contact 
+     * 
+     * @returns void
+     */
 
     constructor(name, std_id, email, contact) {
         this.name = name
@@ -77,62 +34,73 @@ class Student {
         this.contact = contact
     }
 
+    /**
+     * 
+     *  Storing the user input in localstorage
+     *  @returns void
+     */
+
+    static storeLocal() {
+        localStorage.setItem("student_data", JSON.stringify(studentData))
+    }
+
+    /**
+     * 
+     * Create New User
+     * 
+     * @returns void
+     */
     create() {
         const newStudent = {
-            std_name: this.name.value,
+            std_name: this.name,
             std_id: this.std_id,
             email: this.email,
             contact: this.contact
         }
         studentData.push(newStudent);
-        storeLocal()
+        Student.storeLocal()
     }
 
+    /**
+     * 
+     * Delete data based on the index
+     * 
+     * @param index
+     * @returns void
+     */
+
+    static delete(index) {
+        studentData = studentData.filter((student, idx) => index !== idx)
+        Student.storeLocal()
+        Student.updateDisplay();
+    }
+
+    /**
+     * Updating display
+     * 
+     * @param array 
+     * @returns void
+     */
+
+    static updateDisplay() {
+        const rowContainer = document.getElementById('row-container');
+        rowContainer.innerHTML = " "
+        studentData.forEach((student, index) => {
+            const tableRow = document.createElement('tr');
+            tableRow.setAttribute('class', 'table-info')
+            tableRow.innerHTML = `<td scope="row">${index + 1}</th>
+                                   <td scope="row">${student.std_name}</th>
+                                  <td>${student.std_id}</td>
+                                  <td>${student.email}</td>
+                                  <td>${student.contact}</td>
+                                  <td><button onclick="deleteStudentData(${index})" class="btn btn-danger">Delete</button>
+                                  </td>
+                                  `
+            rowContainer.appendChild(tableRow);
+        });
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-// function fib() {
-//     let a = 0
-//     let b = 1
-//     return function () {
-//         const result = a
-//         a = b
-//         b = result + b
-//         return result;
-//     }
-// }
-// const xyz = fib();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -142,7 +110,7 @@ class Validation {
     /**
      * 
      * @param name 
-     * @return bool
+     * @returns bool
      */
     // check if name contains only characters
     static isAllChars = (name = null) => {
@@ -168,7 +136,6 @@ class Validation {
         }
     }
 
-
     /**
      * 
      * @param number 
@@ -182,3 +149,52 @@ class Validation {
         }
     }
 }
+Student.updateDisplay();
+
+
+
+submit.addEventListener('click', (event) => {
+    event.preventDefault();
+    const getName = document.getElementById("std_name").value;
+    const getId = document.getElementById("std_id").value;
+    const email = document.getElementById("email").value;
+    const contactNO = document.getElementById("contact").value;
+
+    if (getName && getId && email && contactNO) {
+
+        if (!Validation.isAllChars(getName)) {
+            errorMessageArray.push({
+                "name": "Name must contain characters only."
+            })
+        }
+        if (!Validation.isEmail(email)) {
+            errorMessageArray.push({
+                "email": "Enter valid email !!"
+            })
+        }
+        if (!Validation.isNumber(getId)) {
+            errorMessageArray.push({
+                "std_id": "Id must be number"
+            })
+        }
+        if (!Validation.isNumber(contactNO)) {
+            errorMessageArray.push({
+                "contact": "Contact no must contain number only"
+            })
+        }
+
+        // Create new user
+        new Student(getName, getId, email, contactNO).create();
+
+
+        document.getElementById("std_name").value = " ";
+        document.getElementById("std_id").value = " ";
+        document.getElementById("email").value = " ";
+        document.getElementById("contact").value = " ";
+        // After adding new user update display 
+        Student.updateDisplay();
+    }
+    else {
+        alert("Input field is empty")
+    }
+})

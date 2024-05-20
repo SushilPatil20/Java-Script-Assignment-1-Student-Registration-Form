@@ -18,79 +18,29 @@
         <span class="heading">Student Registration System</span>
     </header>
 
+    <!--  -->
     <main class="px-5">
         <section class="container mt-5">
             <section class="row hero-section-left">
-                <section class="col-md-6 hero-section-p">
+                <section class="col-md-12 hero-section-p">
                     <p>The Student Registration System allows students to register,
                         edit, and delete their details efficiently. It ensures
                         accurate management of student information for streamlined administration.</p>
                 </section>
-                <section class="col-md-6 hero-section-right">
+                <section class="col-md-12 hero-section-right">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">Index</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Class</th>
-                                <th scope="col">Address</th>
+                                <th scope="col">Student Id</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Contact Number</th>
+                                <th scope="col" colspan="2">Action's</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                        <tbody id="row-container">
+                            <!---------- Container to add the dynamic row ---------->
                         </tbody>
                     </table>
                 </section>
