@@ -7,10 +7,10 @@ Develop Student Registration syste.
 Functionality to implement 
 
 1] Implement functionality to add new student records.  ----------------------------------- Done👍
-2] Allows users to edit existing records.
+2] Allows users to edit existing records. 
 3] Provide Options for deleting records. -------------------------------------------------- Done👍
 4] After refreshing the page data should not disappear  ----------------------------------- Done👍
-5] Validate input fields to ensure student ID and Contact number accepts only numbers.
+5] Validate input fields to ensure student ID and Contact number accepts only numbers. 
 6] Student name accepts only charactors and email accepts only valid email addresses.
-7] Make sure the user can't add the empty row 
+7] Make sure the user can't add the empty row  ----------------------------------- Done👍
 8] Add The virtical scrollbar Dynamically. ----------------------------------- Done👍

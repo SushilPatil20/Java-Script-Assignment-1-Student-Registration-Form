@@ -18,6 +18,11 @@
         <span class="heading">Student Registration System</span>
     </header>
 
+
+    <form class="dynamicFormClass ">
+        <span></span>
+    </form>
+
     <!--  -->
     <main class="px-5">
         <section class="container mt-5">
@@ -33,7 +38,7 @@
                             <tr>
                                 <th scope="col">Index</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Student Id</th>
+                                <th scope="col">Student_id</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Contact Number</th>
                                 <th scope="col" colspan="2">Action's</th>
@@ -46,27 +51,26 @@
                 </section>
             </section>
             <section class="row">
-                <h2 class="text-white text-center heading">Student Form</h2>
-                <form class="col-md-8 offset-2">
+                <h2 class="text-white text-center heading">Student Registration Form</h2>
+                <ul class="col-md-3" id="showError">
+                    <!---------- Container to add the dynamic error ---------->
+                </ul>
+                <form class="col-md-8 offset-2" id="form">
                     <section class="form-element-row form-group">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="std_name" class="form-label">Name</label>
                         <input class="form-control" type="text" id="std_name">
-                        <small class="text-danger" id="name-error">Error</small>
                     </section>
                     <section class="form-element-row form-group">
                         <label for="std_id" class="form-label">Student ID</label>
                         <input class="form-control" type="text" id="std_id">
-                        <small class="text-danger" id="id-error">Error</small>
                     </section>
                     <section class="form-element-row form-group">
                         <label for="email" class="form-label">Email</label>
                         <input class="form-control" type="text" id="email">
-                        <small class="text-danger" id="email-error">Error</small>
                     </section>
                     <section class="form-element-row form-group">
                         <label for="contact" class="form-label">Contact No.</label>
                         <input class="form-control" type="text" id="contact">
-                        <small class="text-danger" id="contact-error">Error</small>
                     </section>
                     <button id="submitBtn" class="btn btn-primary mt-4">Submit</button>
                 </form>

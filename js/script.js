@@ -1,15 +1,17 @@
 
-const errorMessageArray = [];
 const submit = document.getElementById("submitBtn");
 let studentData = JSON.parse(localStorage.getItem("student_data")) || []
-
-
+const takeAllInput = document.querySelectorAll('input');
 
 
 // ------------------------------------ Helpers ------------------------------------
 
 function deleteStudentData(index) {
     Student.delete(index);
+}
+
+function editStudentData(index) {
+    Student.edit(index);
 }
 
 
@@ -72,8 +74,25 @@ class Student {
     static delete(index) {
         studentData = studentData.filter((student, idx) => index !== idx)
         Student.storeLocal()
-        Student.updateDisplay();
+        Student.read();
     }
+
+
+    /**
+     * Edit the data based on data
+     * 
+     * @param index 
+     * @returns void
+     */
+    static edit(index) {
+        const studentToEdit = studentData.filter((student, idx) => idx === index)
+        const hiddenForm = document.querySelector('.dynamicFormClass');
+        hiddenForm.style.top = "50%"
+
+    }
+
+
+
 
     /**
      * Updating display
@@ -82,7 +101,7 @@ class Student {
      * @returns void
      */
 
-    static updateDisplay() {
+    static read() {
         const rowContainer = document.getElementById('row-container');
         rowContainer.innerHTML = " "
         studentData.forEach((student, index) => {
@@ -94,6 +113,7 @@ class Student {
                                   <td>${student.email}</td>
                                   <td>${student.contact}</td>
                                   <td><button onclick="deleteStudentData(${index})" class="btn btn-danger">Delete</button>
+                                  <td><button onclick="editStudentData(${index})" class="btn btn-primary">Edit</button>
                                   </td>
                                   `
             rowContainer.appendChild(tableRow);
@@ -148,53 +168,113 @@ class Validation {
             return !isNaN(number) ? true : false
         }
     }
-}
-Student.updateDisplay();
 
+
+    // Check if given contact number have valid 10 digits
+    static checkIfContactNo(number = null) {
+        const limit = 10
+
+        console.log(typeof limit, typeof number)
+        return limit === number.length
+    }
+
+}
+Student.read();
 
 
 submit.addEventListener('click', (event) => {
     event.preventDefault();
-    const getName = document.getElementById("std_name").value;
-    const getId = document.getElementById("std_id").value;
-    const email = document.getElementById("email").value;
-    const contactNO = document.getElementById("contact").value;
+    const getName = document.getElementById("std_name").value.trim();
+    const getId = document.getElementById("std_id").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const contactNO = document.getElementById("contact").value.trim();
+    let errorMessageArray = []
+
 
     if (getName && getId && email && contactNO) {
 
         if (!Validation.isAllChars(getName)) {
-            errorMessageArray.push({
-                "name": "Name must contain characters only."
-            })
+            errorMessageArray.push("Name must contain characters only.")
         }
+
         if (!Validation.isEmail(email)) {
-            errorMessageArray.push({
-                "email": "Enter valid email !!"
-            })
+            errorMessageArray.push("Enter valid email")
         }
+
         if (!Validation.isNumber(getId)) {
-            errorMessageArray.push({
-                "std_id": "Id must be number"
-            })
+            errorMessageArray.push("Id must be number")
         }
+
         if (!Validation.isNumber(contactNO)) {
-            errorMessageArray.push({
-                "contact": "Contact no must contain number only"
-            })
+            errorMessageArray.push("Contact no must contain number only")
         }
 
-        // Create new user
-        new Student(getName, getId, email, contactNO).create();
+        if (!Validation.checkIfContactNo(contactNO)) {
+            errorMessageArray.push("Enter 10 digit valid phone number")
+        }
+
+        // container to shocase errors
+        const errorContainer = document.getElementById('showError');
+        errorContainer.innerHTML = " "
+
+        // Check if there is a error in the array
+        if (errorMessageArray.length !== 0) {
+            errorMessageArray.forEach((element) => {
+                const errorItem = document.createElement('li')
+                errorItem.setAttribute('class', 'text-danger')
+                errorItem.style.margin = "1rem 0";
+                errorItem.style.listStyle = "none";
+                errorItem.innerHTML = element
+                errorContainer.appendChild(errorItem);
+            });
+        }
+        else {
+            // Create new user
+            new Student(getName, getId, email, contactNO).create();
+
+            // clearing input fields
+            document.getElementById("std_name").value = " ";
+            document.getElementById("std_id").value = " ";
+            document.getElementById("email").value = " ";
+            document.getElementById("contact").value = " ";
 
 
-        document.getElementById("std_name").value = " ";
-        document.getElementById("std_id").value = " ";
-        document.getElementById("email").value = " ";
-        document.getElementById("contact").value = " ";
-        // After adding new user update display 
-        Student.updateDisplay();
+            // Clear error messages
+            errorMessageArray = [];
+            errorContainer.innerHTML = " ";
+
+            // After adding new user update display 
+            Student.read();
+        }
     }
     else {
         alert("Input field is empty")
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------- Adding the dynamic responsiveness ---------------------------
+
+function adjustFormClass() {
+    const form = document.getElementById('form');
+    if (window.innerWidth < 780) {
+        form.classList.remove('offset-2');
+    } else {
+        form.classList.add('offset-2');
+    }
+}
+// Call the function once to set the initial state
+adjustFormClass();
+
+// Add an event listener to adjust on window resize
+window.addEventListener('resize', adjustFormClass);
