@@ -1,19 +1,39 @@
 
+
+// ----------------------------------------------------- Submit form btn -----------------------------------------------------
+
 const submit = document.getElementById("submitBtn");
+
+// ----------------------------------------------------- Getting the student data from localstorage -----------------------------------------------------
 let studentData = JSON.parse(localStorage.getItem("student_data")) || []
-const takeAllInput = document.querySelectorAll('input');
 
 
-// ------------------------------------ Helpers ------------------------------------
 
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------- Helpers functions -----------------------------------------------------
+
+
+// Calling method delete
 function deleteStudentData(index) {
     Student.delete(index);
 }
 
+
+// Calling method edit 
 function editStudentData(index) {
     Student.edit(index);
 }
 
+
+// Scroll top when new Student is added
 function scrollToTop() {
     window.scrollTo({
         top: 0,
@@ -22,7 +42,7 @@ function scrollToTop() {
 }
 
 
-//----------------- Hiding the dynamic form -----------------
+// ----------------------------------------------------- Hiding the dynamic form -----------------------------------------------------
 function hiddenForm() {
     const formToHide = document.querySelector('#dynamicFormClass')
     if (formToHide.classList.contains('showSlow')) {
@@ -30,16 +50,28 @@ function hiddenForm() {
         formToHide.style.top = "-50%"
     }
 }
+
+// ----------------------------------------------------- Event listener inorder to hide the form -----------------------------------------------------
 document.getElementById('hideForm').addEventListener('click', () => hiddenForm())
 
 
 
 
+
+
+
+
+
+
+
+
+// ----------------------------------------------------- Student class to manage student operation -----------------------------------------------------
+
 class Student {
 
     /**
      * 
-     * defining values for properties 
+     * using constructor defining values for properties 
      * 
      * @param name 
      * @param std_id 
@@ -56,6 +88,8 @@ class Student {
         this.contact = contact
     }
 
+
+
     /**
      * 
      *  Storing the user input in localstorage
@@ -65,6 +99,9 @@ class Student {
     static storeLocal() {
         localStorage.setItem("student_data", JSON.stringify(studentData))
     }
+
+
+
 
     /**
      * 
@@ -83,6 +120,10 @@ class Student {
         Student.storeLocal()
     }
 
+
+
+
+
     /**
      * 
      * Delete data based on the index
@@ -98,6 +139,9 @@ class Student {
     }
 
 
+
+
+
     /**
      * Edit the data based on data
      * 
@@ -105,12 +149,14 @@ class Student {
      * @returns void
      */
     static edit(index) {
+        // ----------------------------------------------------- Getting the student based on index -----------------------------------------------------
         const studentToEdit = studentData.filter((student, idx) => idx === index)[0]
-        // console.log(studentToEdit)
         const hiddenForm = document.querySelector('#dynamicFormClass');
         const dynamicInputs = document.getElementById('dynamicFormInputs')
         hiddenForm.classList.add('showSlow');
         hiddenForm.style.top = "50%"
+
+        // ----------------------------------------------------- Showing initial value to the student update form -----------------------------------------------------
         dynamicInputs.innerHTML = `<section>
                                       <label for="updatedName" class="form-label">Name</label>
                                       <input type="text" value="${studentToEdit.std_name}" class="form-control" id="updatedName">
@@ -134,29 +180,36 @@ class Student {
     }
 
 
+
+
     /**
-     * Update the new Data
-     * 
-     * @param event
-     * @param index 
-     * @returns void
-     */
+    * Update the new Data
+    * 
+    * @param event
+    * @param index 
+    * @returns void
+    */
 
     static update(event, index) {
         event.preventDefault()
+        // ----------------------------------------------------- find object based on index -----------------------------------------------------
+        const studentToUpdate = studentData.filter((student, idx) => idx === index)[0];
 
-        // find object based on index
-        const studentToUpdate = studentData.filter((student, idx) => idx === index)[0]
 
+        // ----------------------------------------------------- Fetching updated value -----------------------------------------------------
+        const updatedName = document.getElementById('updatedName').value.trim();
+        const updatedStdId = document.getElementById('updatedStdId').value.trim();
+        const updatedEmail = document.getElementById('updatedEmail').value.trim();
+        const updatedContact = document.getElementById('updatedContact').value.trim();
 
-        const updatedName = document.getElementById('updatedName').value;
-        const updatedStdId = document.getElementById('updatedStdId').value;
-        const updatedEmail = document.getElementById('updatedEmail').value;
-        const updatedContact = document.getElementById('updatedContact').value;
-
+        // ----------------------------------------------------- Array to store the erros -----------------------------------------------------
         let errorMessageArray = [];
 
+        // ----------------------------------------------------- Check if all input field have the value inside them -----------------------------------------------------
         if (updatedName && updatedStdId && updatedEmail && updatedContact) {
+
+            // ----------------------------------------------------- After updating student detail validation is started -----------------------------------------------------
+
             if (!Validation.isAllChars(updatedName)) {
                 errorMessageArray.push("Name must contain characters only.")
             }
@@ -177,30 +230,27 @@ class Student {
                 errorMessageArray.push("Enter 10 digit valid phone number")
             }
 
-
-
-            // Check if there is a error in the array
+            // ----------------------------------------------------- Check if there is a error in the array -----------------------------------------------------
             if (errorMessageArray.length !== 0) {
-                // errorMessageArray.forEach((element) => {
-                //     const errorItem = document.createElement('li')
-                //     errorItem.setAttribute('class', 'text-danger')
-                //     errorItem.style.margin = "1rem 0";
-                //     errorItem.style.listStyle = "none";
-                //     errorItem.innerHTML = element
-                //     errorContainer.appendChild(errorItem);
-                // });
+                // ----------------------------------------------------- Collection all the errors into single string -----------------------------------------------------
+                let ulForErrors = "";
+                errorMessageArray.forEach((element) => {
+                    ulForErrors += `${element}`;
+                    ulForErrors += "\n";
+                })
+
+                // ----------------------------------------------------- displaying errors in alert box it there is one -----------------------------------------------------
+                alert(ulForErrors)
             }
             else {
-
-                // Asigning updated value
+                // ----------------------------------------------------- Asigning updated value -----------------------------------------------------
                 studentToUpdate.std_id = updatedStdId;
                 studentToUpdate.std_name = updatedName;
                 studentToUpdate.email = updatedEmail;
                 studentToUpdate.contact = updatedContact;
 
-                // Clear error messages
+                // ----------------------------------------------------- Clear error messages -----------------------------------------------------
                 errorMessageArray = [];
-                // errorContainer.innerHTML = " ";
 
                 Student.storeLocal();
                 Student.read();
@@ -210,10 +260,6 @@ class Student {
         else {
             alert("Input field is empty")
         }
-
-
-
-
 
     }
 
@@ -232,8 +278,8 @@ class Student {
         studentData.forEach((student, index) => {
             const tableRow = document.createElement('tr');
             tableRow.setAttribute('class', 'table-info')
-            tableRow.innerHTML = `<td scope="row">${index + 1}</th>
-                                   <td scope="row">${student.std_name}</th>
+            tableRow.innerHTML = `<td scope = "row" >${index + 1}</td>
+                                   <td scope="row">${student.std_name}</td>
                                   <td>${student.std_id}</td>
                                   <td>${student.email}</td>
                                   <td>${student.contact}</td>
@@ -250,6 +296,14 @@ class Student {
 
 
 
+
+
+
+
+
+
+
+
 // ---------------------- Validate user enterd Data ----------------------
 class Validation {
     /**
@@ -257,12 +311,12 @@ class Validation {
      * @param name 
      * @returns bool
      */
-    // check if name contains only characters
+    // ----------------------------------------------------- check if name contains only characters
     static isAllChars = (name = null) => {
         if (name !== null) {
-            // Reguler expression  
+            // ----------------------------------------------------- Reguler expression  -----------------------------------------------------
             const regex = /^[a-zA-Z]+$/
-            // test is object use with Reguler expressions to check if pattern exist
+            // ----------------------------------------------------- test is object use with Reguler expressions to check if pattern exist -----------------------------------------------------
             return regex.test(name) ? true : false;
         }
     }
@@ -273,7 +327,7 @@ class Validation {
      * @returns bool
      */
 
-    // check if input value is valid email
+    // ----------------------------------------------------- check if input value is valid email -----------------------------------------------------
     static isEmail = (email = null) => {
         if (email !== null) {
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -287,7 +341,7 @@ class Validation {
      * @returns bool
      */
 
-    // check if input value is valid number
+    // ----------------------------------------------------- check if input value is valid number -----------------------------------------------------
     static isNumber = (number = null) => {
         if (number !== null) {
             return !isNaN(number) ? true : false
@@ -295,7 +349,7 @@ class Validation {
     }
 
 
-    // Check if given contact number have valid 10 digits
+    // ----------------------------------------------------- Check if given contact number have valid 10 digits -----------------------------------------------------
     static checkIfContactNo(number = null) {
         const limit = 10
 
@@ -304,19 +358,36 @@ class Validation {
     }
 
 }
+
+//  ----------------------------------------------------- Initially calling the read method to read student data if it exist's -----------------------------------------------------
 Student.read();
 
 
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------- Submit the form -----------------------------------------------------
 submit.addEventListener('click', (event) => {
     event.preventDefault();
+
+    // Accsessing all the value enterd by the Student
     const getName = document.getElementById("std_name").value.trim();
     const getId = document.getElementById("std_id").value.trim();
     const email = document.getElementById("email").value.trim();
     const contactNO = document.getElementById("contact").value.trim();
     let errorMessageArray = []
 
-
+    // ----------------------------------------------------- Check if all input feild contains value -----------------------------------------------------
     if (getName && getId && email && contactNO) {
+
+        // ----------------------------------------------------- Validation data before storing into the data based -----------------------------------------------------
 
         if (!Validation.isAllChars(getName)) {
             errorMessageArray.push("Name must contain characters only.")
@@ -338,11 +409,11 @@ submit.addEventListener('click', (event) => {
             errorMessageArray.push("Enter 10 digit valid phone number")
         }
 
-        // container to shocase errors
+        // ----------------------------------------------------- container to shocase errors -----------------------------------------------------
         const errorContainer = document.getElementById('showError');
         errorContainer.innerHTML = " "
 
-        // Check if there is a error in the array
+        // ----------------------------------------------------- Check if there is a error in the array -----------------------------------------------------
         if (errorMessageArray.length !== 0) {
             errorMessageArray.forEach((element) => {
                 const errorItem = document.createElement('li')
@@ -354,7 +425,9 @@ submit.addEventListener('click', (event) => {
             });
         }
         else {
-            // Create new user
+
+
+            // ----------------------------------------------------- If no error Create new student -----------------------------------------------------
             new Student(getName, getId, email, contactNO).create();
 
             // clearing input fields
@@ -364,14 +437,14 @@ submit.addEventListener('click', (event) => {
             document.getElementById("contact").value = " ";
 
 
-            // Clear error messages
+            // ----------------------------------------------------- Clear error messages -----------------------------------------------------
             errorMessageArray = [];
             errorContainer.innerHTML = " ";
 
-            // After adding new user update display 
+            // ----------------------------------------------------- After adding new user update display -----------------------------------------------------
             Student.read();
 
-            // Scroll to top after creating new student.
+            // ----------------------------------------------------- Scroll to top after creating new student. -----------------------------------------------------
             scrollToTop()
         }
     }
@@ -381,14 +454,33 @@ submit.addEventListener('click', (event) => {
 })
 
 
-// --------------------------- Adding the dynamic responsiveness ---------------------------
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------- Adding the dynamic responsiveness (Styling) -----------------------------------------------------
 
 function adjustFormClass() {
     const form = document.getElementById('form');
+    const subMain = document.getElementById('subMain')
+    const main = document.getElementById('main')
+
     if (window.innerWidth < 780) {
         form.classList.remove('offset-2');
+        subMain.classList.remove('container')
+        main.classList.remove('px-5')
+        main.classList.add('px-4')
     } else {
         form.classList.add('offset-2');
+        subMain.classList.add('container')
+        main.classList.add('px-5')
+        main.classList.remove('px-4')
     }
 }
 // Call the function once to set the initial state

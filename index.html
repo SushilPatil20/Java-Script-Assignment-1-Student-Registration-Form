@@ -5,16 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Sushil">
+
+
+    <!------------------------------------------------------- bootstrap css ------------------------------------------------------->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!------------------------------------------------------- External CSS ------------------------------------------------------->
+
     <link rel="stylesheet" href="./css/style.css">
+
 
     <title>Student Registration Form</title>
 </head>
 
 <body>
 
-    <!-- Header -->
+    <!------------------------------------------------------- Header ------------------------------------------------------->
     <header class="px-5">
         <span class="heading">Student Registration System</span>
     </header>
@@ -23,16 +32,14 @@
         <span class="btn btn-primary" id="hideForm"><i class="fa fa-remove"></i></span>
         <h2 class="text-center my-4">Update Student Details</h2>
         <section id="dynamicFormInputs">
-            <!-- Dynamic Content -->
+
+            <!------------------------------------------------------- Adding a dynamic form elements ------------------------------------------------------->
+
         </section>
-        <!-- <section class="text-center my-4">
-            <button class="btn btn-success" id="updateDetails">Update</button>
-        </section> -->
     </form>
 
-    <!--  -->
-    <main class="px-5">
-        <section class="container mt-5">
+    <main class="px-5" id="main">
+        <section class="container mt-5" id="subMain">
             <section class="row hero-section-left">
                 <section class="col-md-12 hero-section-p">
                     <p>The Student Registration System allows students to register,
@@ -52,7 +59,7 @@
                             </tr>
                         </thead>
                         <tbody id="row-container">
-                            <!---------- Container to add the dynamic row ---------->
+                            <!------------------------------------------------------- Container to add the dynamic row for student details ------------------------------------------------------->
                         </tbody>
                     </table>
                 </section>
@@ -60,7 +67,7 @@
             <section class="row">
                 <h2 class="text-white text-center heading">Student Registration Form</h2>
                 <ul class="col-md-3" id="showError">
-                    <!---------- Container to add the dynamic error ---------->
+                    <!------------------------------------------------------- Container to add the dynamic error ------------------------------------------------------->
                 </ul>
                 <form class="col-md-8 offset-2" id="form">
                     <section class="form-element-row form-group">
@@ -85,12 +92,22 @@
         </section>
         </section>
     </main>
+
+
+    <!------------------------------------------------------- Bootstrap java script file ------------------------------------------------------->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+
+    <!------------------------------------------------------- CDN Fontawesome icons ------------------------------------------------------->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
         integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!------------------------------------------------------- External javaScript ------------------------------------------------------->
+
     <script src="./js/script.js"></script>
 </body>
 
