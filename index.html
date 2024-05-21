@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
+
     <title>Student Registration Form</title>
 </head>
 
@@ -18,27 +19,15 @@
         <span class="heading">Student Registration System</span>
     </header>
 
-
     <form id="dynamicFormClass">
-        <span class="btn btn-primary" id="hideForm">Remove</span>
-        <section>
-            <section>
-                <label for="" class="form-label">Name</label>
-                <input type="text" value="name">
-            </section>
-            <section>
-                <label for=""></label>
-                <input type="text">
-            </section>
-            <section>
-                <label for=""></label>
-                <input type="text">
-            </section>
-            <section>
-                <input type="text">
-                <label for=""></label>
-            </section>
+        <span class="btn btn-primary" id="hideForm"><i class="fa fa-remove"></i></span>
+        <h2 class="text-center my-4">Update Student Details</h2>
+        <section id="dynamicFormInputs">
+            <!-- Dynamic Content -->
         </section>
+        <!-- <section class="text-center my-4">
+            <button class="btn btn-success" id="updateDetails">Update</button>
+        </section> -->
     </form>
 
     <!--  -->
@@ -99,6 +88,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./js/script.js"></script>
 </body>
 

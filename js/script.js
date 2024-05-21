@@ -22,15 +22,16 @@ function scrollToTop() {
 }
 
 
-// -------------------- hide 
-const btnToHideForm = document.getElementById('hideForm');
-btnToHideForm.addEventListener('click', () => {
+//----------------- Hiding the dynamic form -----------------
+function hiddenForm() {
     const formToHide = document.querySelector('#dynamicFormClass')
     if (formToHide.classList.contains('showSlow')) {
         formToHide.classList.remove('showSlow')
         formToHide.style.top = "-50%"
     }
-})
+}
+document.getElementById('hideForm').addEventListener('click', () => hiddenForm())
+
 
 
 
@@ -104,10 +105,116 @@ class Student {
      * @returns void
      */
     static edit(index) {
-        const studentToEdit = studentData.filter((student, idx) => idx === index)
+        const studentToEdit = studentData.filter((student, idx) => idx === index)[0]
+        // console.log(studentToEdit)
         const hiddenForm = document.querySelector('#dynamicFormClass');
+        const dynamicInputs = document.getElementById('dynamicFormInputs')
         hiddenForm.classList.add('showSlow');
         hiddenForm.style.top = "50%"
+        dynamicInputs.innerHTML = `<section>
+                                      <label for="updatedName" class="form-label">Name</label>
+                                      <input type="text" value="${studentToEdit.std_name}" class="form-control" id="updatedName">
+                                   </section>
+                                   <section>
+                                      <label for="updatedStdId" class="form-label">Student ID</label>
+                                      <input type="text" value="${studentToEdit.std_id}" class="form-control" id="updatedStdId">
+                                   </section>
+                                   <section>
+                                      <label for="updatedEmail" class="form-label">Email</label>
+                                      <input type="text" value="${studentToEdit.email}" class="form-control" id="updatedEmail">
+                                   </section>
+                                   <section>
+                                      <label for="updatedContact" class="form-label">Contact</label>
+                                      <input type="text" value="${studentToEdit.contact}" class="form-control" id="updatedContact">
+                                   </section>
+                                   <section class="text-center my-4">
+                                      <button class="btn btn-success" onclick="Student.update(event, ${index})" id="updateDetails">Update</button>
+                                   </section>
+                                   `
+    }
+
+
+    /**
+     * Update the new Data
+     * 
+     * @param event
+     * @param index 
+     * @returns void
+     */
+
+    static update(event, index) {
+        event.preventDefault()
+
+        // find object based on index
+        const studentToUpdate = studentData.filter((student, idx) => idx === index)[0]
+
+
+        const updatedName = document.getElementById('updatedName').value;
+        const updatedStdId = document.getElementById('updatedStdId').value;
+        const updatedEmail = document.getElementById('updatedEmail').value;
+        const updatedContact = document.getElementById('updatedContact').value;
+
+        let errorMessageArray = [];
+
+        if (updatedName && updatedStdId && updatedEmail && updatedContact) {
+            if (!Validation.isAllChars(updatedName)) {
+                errorMessageArray.push("Name must contain characters only.")
+            }
+
+            if (!Validation.isEmail(updatedEmail)) {
+                errorMessageArray.push("Enter valid email")
+            }
+
+            if (!Validation.isNumber(updatedStdId)) {
+                errorMessageArray.push("Id must be number")
+            }
+
+            if (!Validation.isNumber(updatedContact)) {
+                errorMessageArray.push("Contact no must contain number only")
+            }
+
+            if (!Validation.checkIfContactNo(updatedContact)) {
+                errorMessageArray.push("Enter 10 digit valid phone number")
+            }
+
+
+
+            // Check if there is a error in the array
+            if (errorMessageArray.length !== 0) {
+                // errorMessageArray.forEach((element) => {
+                //     const errorItem = document.createElement('li')
+                //     errorItem.setAttribute('class', 'text-danger')
+                //     errorItem.style.margin = "1rem 0";
+                //     errorItem.style.listStyle = "none";
+                //     errorItem.innerHTML = element
+                //     errorContainer.appendChild(errorItem);
+                // });
+            }
+            else {
+
+                // Asigning updated value
+                studentToUpdate.std_id = updatedStdId;
+                studentToUpdate.std_name = updatedName;
+                studentToUpdate.email = updatedEmail;
+                studentToUpdate.contact = updatedContact;
+
+                // Clear error messages
+                errorMessageArray = [];
+                // errorContainer.innerHTML = " ";
+
+                Student.storeLocal();
+                Student.read();
+                hiddenForm();
+            }
+        }
+        else {
+            alert("Input field is empty")
+        }
+
+
+
+
+
     }
 
 
