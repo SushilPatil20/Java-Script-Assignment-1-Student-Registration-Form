@@ -72,20 +72,30 @@ body {
 }
 
 
-.dynamicFormClass {
-    position: absolute;
+#dynamicFormClass {
+    position: fixed;
     top: -50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 25rem;
-    width: 40rem;
+    width: 90%;
+    max-width: 40rem;
     border-radius: 1rem;
     background-color: white;
     z-index: 10;
 }
 
-.animation {
-    animation: comeSlowly 1.5s linear forwards;
+
+#dynamicFormClass span {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+
+
+/* Animation class inorder to add dynamic style to the form */
+.showSlow {
+    animation: comeSlowly 0.4s ease-out forwards;
 }
 
 @keyframes comeSlowly {
@@ -97,3 +107,18 @@ body {
         top: 50%;
     }
 }
+
+
+/* .hideSlow {
+    animation: hideSlowly 0.4s ease-in forwards;
+}
+
+@keyframes hideSlowly {
+    from {
+        top: 50%;
+    }
+
+    to {
+        top: -50%;
+    }
+} */

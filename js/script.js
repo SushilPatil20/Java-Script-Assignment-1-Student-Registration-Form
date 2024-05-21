@@ -14,6 +14,25 @@ function editStudentData(index) {
     Student.edit(index);
 }
 
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+}
+
+
+// -------------------- hide 
+const btnToHideForm = document.getElementById('hideForm');
+btnToHideForm.addEventListener('click', () => {
+    const formToHide = document.querySelector('#dynamicFormClass')
+    if (formToHide.classList.contains('showSlow')) {
+        formToHide.classList.remove('showSlow')
+        formToHide.style.top = "-50%"
+    }
+})
+
+
 
 class Student {
 
@@ -86,11 +105,10 @@ class Student {
      */
     static edit(index) {
         const studentToEdit = studentData.filter((student, idx) => idx === index)
-        const hiddenForm = document.querySelector('.dynamicFormClass');
+        const hiddenForm = document.querySelector('#dynamicFormClass');
+        hiddenForm.classList.add('showSlow');
         hiddenForm.style.top = "50%"
-
     }
-
 
 
 
@@ -245,22 +263,15 @@ submit.addEventListener('click', (event) => {
 
             // After adding new user update display 
             Student.read();
+
+            // Scroll to top after creating new student.
+            scrollToTop()
         }
     }
     else {
         alert("Input field is empty")
     }
 })
-
-
-
-
-
-
-
-
-
-
 
 
 // --------------------------- Adding the dynamic responsiveness ---------------------------
